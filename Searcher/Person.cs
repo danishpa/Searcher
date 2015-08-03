@@ -38,11 +38,7 @@ namespace Searcher
                 this.LastName
             };
 
-            var q = from property in properties
-                    where property.Contains(searchTerm)
-                    select property;
-
-            return q.Count();            
+            return properties.Where(property => property.Contains(searchTerm)).Count();            
         }
 
         public int Search(string[] searchTerms)
