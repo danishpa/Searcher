@@ -51,8 +51,5 @@ namespace Searcher
         {
             return searchTerms.Select(searchTerm => this.Search(searchTerm)).All(x => x > 0);
         }
-
-
-
     }
 }
