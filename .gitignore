@@ -3,5 +3,8 @@
 *.exe
 *.pdb
 *.Cache
-Searcher/bin/Debug/*
-Searcher/obj/Debug/*
+Searcher/bin/*
+Searcher/obj/*
+TestResults/*
+TestSearcher/bin/*
+TestSearcher/obj/*
