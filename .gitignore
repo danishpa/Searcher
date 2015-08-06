@@ -5,3 +5,4 @@
 *.Cache
 Searcher/bin/Debug/*
 Searcher/obj/Debug/*
+TestResults/
