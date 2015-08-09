@@ -3,8 +3,8 @@
 *.exe
 *.pdb
 *.Cache
-*.g.c
-*.g.i.c
+*.g.cs
+*.g.i.cs
 Searcher/bin/Debug/*
 Searcher/obj/Debug/*
 TestResults/
