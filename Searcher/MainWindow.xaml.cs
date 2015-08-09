@@ -25,6 +25,8 @@ namespace Searcher
     public partial class MainWindow : Window
     {
         private List<Person> originalPersons;
+        private CultureInfo hebrewLanguage = null;
+        private CultureInfo previousLanguage = null;
 
         private void LoadPersonsFromFile(string filePath)
         {
@@ -32,7 +34,7 @@ namespace Searcher
         }
 
         private void PopulateDataGrid(List<Person> persons)
-        {
+        { 
             this.SearchResults.ItemsSource = persons;   
         }
 
@@ -58,21 +60,44 @@ namespace Searcher
             this.PopulateDataGrid(filteredPersons);
         }
 
+        /* FUTURE: This is quite a complex code, that acheives just about the default behavior. It's here, since in the future we would like
+         * To handle cases were the window is hidden, and when it comes back from being hidden, the new input language is hebrew.
+         * This must be done programatically */
+
+        /* This checks if the last used input language isn't hebrew, and sets the current input language accordingly */
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            this.setCorrectCultureInfoForTextBox();
+            if ((previousLanguage != null) && !previousLanguage.DisplayName.Equals(hebrewLanguage.DisplayName))
+            {
+                InputLanguageManager.SetInputLanguage(SearchTextBox, previousLanguage);
+            }
+            else
+            {
+                InputLanguageManager.SetInputLanguage(SearchTextBox, hebrewLanguage);
+            }
         }
 
-        public void setCorrectCultureInfoForTextBox()
+        /* This event handler deals with the changing of input language - it remembers the new language, so if the user
+         * switched input language, then search box lost focus, when we regain focus, use the new language the user picked. */
+        private void Current_InputLanguageChanged(object sender, InputLanguageEventArgs e)
+        {
+            if (SearchTextBox.IsFocused)
+            {
+                previousLanguage = e.NewLanguage;
+            }
+        }
+
+        private void InitializeLanguageParameters()
         {
             string cultureString = "he";
-            CultureInfo hebrewCultureInfo = null;
-
+            
             try
             {
-                hebrewCultureInfo = CultureInfo.CreateSpecificCulture(cultureString);
-                InputLanguageManager.SetInputLanguage(this.SearchTextBox, hebrewCultureInfo);
+                hebrewLanguage = CultureInfo.CreateSpecificCulture(cultureString);
                 Trace.WriteLine(String.Format("Set Culture to {0}", cultureString));
+
+                InputLanguageManager.Current.InputLanguageChanged += Current_InputLanguageChanged;
+                Trace.WriteLine(String.Format("Added event handler for Input Language Change"));
             }
             catch (CultureNotFoundException)
             {
@@ -80,24 +105,25 @@ namespace Searcher
             }
         }
 
+
         public MainWindow()
         {
             InitializeComponent();
+            InitializeLanguageParameters();
 
             // Load persons from a file and into the originalPersons
             LoadPersonsFromFile(@"C:\Projects\Searcher\Searcher\samples\people_hebrew.csv");
             
             // First grid population
-            PopulateDataGrid(this.originalPersons);
-            this.SearchResults.AutoGenerateColumns = true;
+            PopulateDataGrid(originalPersons);
+            SearchResults.AutoGenerateColumns = true;
 
             //Future- popup with key combo
             //this.Visibility = Visibility.Hidden;
 
             // Focus on the textbox to improve UX
-            this.SearchTextBox.Focus();
+            SearchTextBox.Focus();
+            
         }
-
-
     }
 }
