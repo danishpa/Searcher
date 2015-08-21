@@ -29,6 +29,7 @@ namespace Searcher
         private List<DynamicPerson> originalPersons;
         private CultureInfo hebrewLanguage = null;
         private CultureInfo previousLanguage = null;
+        private Settings SettingsWindow = null;
 
         private void InitializeLanguageParameters()
         {
@@ -46,6 +47,11 @@ namespace Searcher
             {
                 Trace.WriteLine("Culture {0} not found", cultureString);
             }
+        }
+        
+        private void InitializeSubWindows()
+        {
+            SettingsWindow = new Settings();
         }
 
         private void InitializeRunStatus()
@@ -96,6 +102,7 @@ namespace Searcher
         public MainWindow()
         {
             InitializeComponent();
+            InitializeSubWindows();
             InitializeLanguageParameters();
             InitializeRunStatus();
             InitializePositionWindow();
@@ -197,8 +204,12 @@ namespace Searcher
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            if (SettingsWindow.IsLoaded)
+            {
+                SettingsWindow.Close();
+            }
+            
             SaveWindowPositionToProperties();
-
             Properties.Settings.Default.Save();
         }
 
@@ -213,5 +224,21 @@ namespace Searcher
             }
         }
 
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!SettingsWindow.IsLoaded)
+            {
+                SettingsWindow = new Settings();
+            }
+
+            if (SettingsWindow.IsVisible)
+            {
+                SettingsWindow.Hide();
+            }
+            else
+            {
+                SettingsWindow.Show();
+            }
+        }
     }
 }
