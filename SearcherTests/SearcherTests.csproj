@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -53,7 +54,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Searcher\Common.cs" />
     <Compile Include="Searcher\DynamicPersonTests.cs" />
-    <Compile Include="Searcher\SearchableExtensionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Searcher\Searcher.csproj">
