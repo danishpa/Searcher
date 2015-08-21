@@ -212,5 +212,6 @@ namespace Searcher
                 DragMove();
             }
         }
+
     }
 }
