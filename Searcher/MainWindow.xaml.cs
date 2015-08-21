@@ -112,7 +112,7 @@ namespace Searcher
 
         private void InitializeRunStatus()
         {
-            //Properties.Settings.Default.FirstRun = false;
+            Properties.Settings.Default.FirstRun = false;
         }
 
         private void InitializePositionWindow()
