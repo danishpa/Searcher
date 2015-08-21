@@ -31,12 +31,9 @@ namespace Searcher
                 return false;
             }
 
-            if (index >= _fields.Length)
-            {
-                // Not enough fields for all headers
-                result = string.Empty;
-            }
-            else
+            // If there aren't enough fields for all headers, return Empty string and still succeed
+            result = string.Empty;
+            if (index < _fields.Length)
             {
                 result = _fields[index];
             }
