@@ -32,6 +32,18 @@ namespace Searcher.Tests
         }
 
         [TestMethod()]
+        public void TryGetMember_TooManyHeaders_Test()
+        {
+            string[] headers = { "A", "B", "C" };
+            string[] fields = { "a" };
+
+            dynamic p = Common.CreateDynamicPerson(headers, fields);
+            Assert.AreEqual(fields[0], p.A);
+            Assert.AreEqual(string.Empty, p.B);
+            Assert.AreEqual(string.Empty, p.C);
+        }
+
+        [TestMethod()]
         public void GetDynamicMemberNames_Test()
         {
             string[] headers = { "A", "B", "C" };

@@ -31,7 +31,16 @@ namespace Searcher
                 return false;
             }
 
-            result = _fields[index];
+            if (index >= _fields.Length)
+            {
+                // Not enough fields for all headers
+                result = string.Empty;
+            }
+            else
+            {
+                result = _fields[index];
+            }
+
             return true;
         }
 
