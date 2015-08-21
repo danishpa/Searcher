@@ -30,7 +30,7 @@ namespace Searcher
 
         private void LoadPersonsFromFile(string filePath)
         {
-            this.originalPersons = PersonProvider.FromFile(filePath, PersonProviderSupportedFileTypes.CSV);
+            this.originalPersons = PersonProvider.FromFile(filePath);
         }
 
         private void PopulateDataGrid(List<Person> persons)

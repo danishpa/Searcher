@@ -5,6 +5,8 @@
 *.Cache
 *.g.cs
 *.g.i.cs
+Searcher/bin/Debug
 Searcher/bin/Debug/*
+Searcher/obj/Debug
 Searcher/obj/Debug/*
 TestResults/

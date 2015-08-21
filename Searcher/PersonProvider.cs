@@ -8,18 +8,14 @@ namespace Searcher
 {
     public enum PersonProviderSupportedFileTypes
     {
+        Unknown = 0,
         CSV
     }
 
     public static class PersonProvider
     {
-        public static char CSVSeperator = ',';
-
-        public static Dictionary<string, PersonProviderSupportedFileTypes> suffixToFileType =
-            new Dictionary<string, PersonProviderSupportedFileTypes>()
-            {
-                { PersonProviderSupportedFileTypes.CSV.ToString(), PersonProviderSupportedFileTypes.CSV }
-            };
+        internal static char CSVSeperator = ',';
+        internal static readonly string SuffixSeperator = ".";
 
         public static Dictionary<PersonProviderSupportedFileTypes, Func<string, List<Person>>> ProviderTypeToFunc =
             new Dictionary<PersonProviderSupportedFileTypes, Func<string, List<Person>>>()
@@ -41,10 +37,18 @@ namespace Searcher
             
             return data.ToList();
         }
-
-        public static List<Person> FromFile(string filePath, PersonProviderSupportedFileTypes type)
+         
+        public static List<Person> FromFile(string filePath)
         {
-            return ProviderTypeToFunc[type](filePath);
+            PersonProviderSupportedFileTypes fileType = PersonProviderSupportedFileTypes.Unknown;
+            string fileSuffix = Path.GetExtension(filePath).Replace(SuffixSeperator, String.Empty).ToUpper();
+    
+            if (!Enum.TryParse(fileSuffix, out fileType)
+                 || fileType == PersonProviderSupportedFileTypes.Unknown)
+            {
+                throw new UnrecognizedFileTypeException();
+            }
+            return ProviderTypeToFunc[fileType](filePath);
         }
     }
 }
