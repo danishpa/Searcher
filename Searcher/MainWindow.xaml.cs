@@ -110,27 +110,12 @@ namespace Searcher
             }
         }
 
-        public MainWindow()
+        private void InitializeRunStatus()
         {
-            InitializeComponent();
-            InitializeLanguageParameters();
-
-            // Load persons from a file and into the originalPersons
-            LoadPersonsFromFile(@"C:\Projects\Searcher\Searcher\samples\people_hebrew.csv");
-            
-            // First grid population
-            PopulateDataGrid(originalPersons);
-            //!! SearchResults.HeadersVisibility = DataGridHeadersVisibility.All;
-            SearchResults.AutoGenerateColumns = true;
-
-            //!! Future - popup with key combo
-            //!! this.Visibility = Visibility.Hidden;
-
-            // Focus on the textbox to improve UX
-            SearchTextBox.Focus();
+            //Properties.Settings.Default.FirstRun = false;
         }
 
-        private void PositionWindow()
+        private void InitializePositionWindow()
         {
             double maxHeight = SystemParameters.WorkArea.Bottom;
             double maxWidth = SystemParameters.WorkArea.Right;
@@ -164,17 +149,45 @@ namespace Searcher
             }
         }
 
-        private void Window_Initialized(object sender, EventArgs e)
+        public MainWindow()
         {
-            Properties.Settings.Default.FirstRun = false;
+            InitializeComponent();
+            InitializeLanguageParameters();
+            InitializeRunStatus();
+            InitializePositionWindow();
+
+            // Load persons from a file and into the originalPersons
+            LoadPersonsFromFile(@"C:\Projects\Searcher\Searcher\samples\people_hebrew.csv");
             
-            PositionWindow();
+            // First grid population
+            PopulateDataGrid(originalPersons);
+            //!! SearchResults.HeadersVisibility = DataGridHeadersVisibility.All;
+            SearchResults.AutoGenerateColumns = true;
+
+            //!! Future - popup with key combo
+            //!! this.Visibility = Visibility.Hidden;
+
+            // Focus on the textbox to improve UX
+            SearchTextBox.Focus();
+        }
+
+        private void SaveWindowPositionToProperties(double top, double left)
+        {
+            Properties.Settings.Default.LastPosition_Top = top;
+            Properties.Settings.Default.LastPosition_Left = left;
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void SaveWindowPositionToProperties()
+        {
+            SaveWindowPositionToProperties(Top, Left);
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Properties.Settings.Default.LastPosition_Top = Top;
-            Properties.Settings.Default.LastPosition_Left = Left;
+            SaveWindowPositionToProperties();
+
             Properties.Settings.Default.Save();
         }
 
@@ -184,6 +197,7 @@ namespace Searcher
             if (e.ChangedButton == MouseButton.Left)
             {
                 Properties.Settings.Default.AutoPositionWindow = false;
+
                 DragMove();
             }
         }
