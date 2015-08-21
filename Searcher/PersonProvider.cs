@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Dynamic;
 
 namespace Searcher
 {
@@ -17,28 +18,26 @@ namespace Searcher
         internal static char CSVSeperator = ',';
         internal static readonly string SuffixSeperator = ".";
 
-        public static Dictionary<PersonProviderSupportedFileTypes, Func<string, List<Person>>> ProviderTypeToFunc =
-            new Dictionary<PersonProviderSupportedFileTypes, Func<string, List<Person>>>()
+        public static Dictionary<PersonProviderSupportedFileTypes, Func<string, List<DynamicPerson>>> ProviderTypeToFunc =
+            new Dictionary<PersonProviderSupportedFileTypes, Func<string, List<DynamicPerson>>>()
             {
                 { PersonProviderSupportedFileTypes.CSV, FromCSVFile }
             };
 
-        public static List<Person> FromCSVFile(string filePath)
+        public static List<DynamicPerson> FromCSVFile(string filePath)
         {
             string[] lines = File.ReadAllLines(filePath, Encoding.UTF8);
-            var data = from line in lines
+            string[] headers = lines[0].Split(CSVSeperator);
+
+            // Skip first line (containing the headers)
+            var data = from line in lines.Skip(1)
                        let elements = line.Split(CSVSeperator)
-                       where elements.Length >= 2
-                       select new Person(
-                           elements[0],
-                           elements[1],
-                           elements[2]
-                       );
+                       select new DynamicPerson(headers, elements);
             
             return data.ToList();
         }
          
-        public static List<Person> FromFile(string filePath)
+        public static List<DynamicPerson> FromFile(string filePath)
         {
             PersonProviderSupportedFileTypes fileType = PersonProviderSupportedFileTypes.Unknown;
             string fileSuffix = Path.GetExtension(filePath).Replace(SuffixSeperator, String.Empty).ToUpper();

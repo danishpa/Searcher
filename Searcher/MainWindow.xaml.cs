@@ -24,7 +24,7 @@ namespace Searcher
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Person> originalPersons;
+        private List<DynamicPerson> originalPersons;
         private CultureInfo hebrewLanguage = null;
         private CultureInfo previousLanguage = null;
 
@@ -33,12 +33,12 @@ namespace Searcher
             this.originalPersons = PersonProvider.FromFile(filePath);
         }
 
-        private void PopulateDataGrid(List<Person> persons)
-        { 
-            this.SearchResults.ItemsSource = persons;   
+        private void PopulateDataGrid(List<DynamicPerson> persons)
+        {
+            this.SearchResults.ItemsSource = persons;
         }
 
-        private List<Person> GetPersonsBySearchTerm(string searchTerm)
+        private List<DynamicPerson> GetPersonsBySearchTerm(string searchTerm)
         {
             // TODO: 
             // 1. Smarter search logic - Fuzzy search - Consecutive letters
@@ -55,7 +55,7 @@ namespace Searcher
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            List<Person> filteredPersons = GetPersonsBySearchTerm(this.SearchTextBox.Text);
+            List<DynamicPerson> filteredPersons = GetPersonsBySearchTerm(this.SearchTextBox.Text);
 
             this.PopulateDataGrid(filteredPersons);
         }
@@ -104,7 +104,6 @@ namespace Searcher
                 Trace.WriteLine("Culture {0} not found", cultureString);
             }
         }
-
 
         public MainWindow()
         {
