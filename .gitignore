@@ -3,6 +3,7 @@
 *.exe
 *.pdb
 *.Cache
+<<<<<<< HEAD
 *.g.cs
 *.g.i.cs
 Searcher.Tests/
@@ -12,3 +13,10 @@ Searcher/bin/Debug/*
 Searcher\obj\Debug
 Searcher/obj/Debug/*
 TestResults/
+=======
+Searcher/bin/*
+Searcher/obj/*
+TestResults/*
+TestSearcher/bin/*
+TestSearcher/obj/*
+>>>>>>> master
