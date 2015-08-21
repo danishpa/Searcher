@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Dynamic;
-using System.ComponentModel;
-using System.Collections.ObjectModel;
 
 namespace Searcher
 {
@@ -43,7 +39,7 @@ namespace Searcher
         {
             return _fields.Where(property => property.Contains(searchTerm)).Count();
         }
-
+        
         public override IEnumerable<string> GetDynamicMemberNames()
         {
             return _headers;

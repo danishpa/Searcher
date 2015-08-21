@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Dynamic;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
 
-namespace Searcher
+namespace Dynamics
 {
     public class DynamicPropertyDescriptor : PropertyDescriptor
     {
