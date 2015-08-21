@@ -15,6 +15,12 @@ namespace Searcher
     {
         public static char CSVSeperator = ',';
 
+        public static Dictionary<string, PersonProviderSupportedFileTypes> suffixToFileType =
+            new Dictionary<string, PersonProviderSupportedFileTypes>()
+            {
+                { PersonProviderSupportedFileTypes.CSV.ToString(), PersonProviderSupportedFileTypes.CSV }
+            };
+
         public static Dictionary<PersonProviderSupportedFileTypes, Func<string, List<Person>>> ProviderTypeToFunc =
             new Dictionary<PersonProviderSupportedFileTypes, Func<string, List<Person>>>()
             {
@@ -32,7 +38,7 @@ namespace Searcher
                            elements[1],
                            elements[2]
                        );
-
+            
             return data.ToList();
         }
 
