@@ -30,12 +30,12 @@ namespace Searcher
 
         private void LoadPersonsFromFile(string filePath)
         {
-            this.originalPersons = PersonProvider.FromFile(filePath);
+            originalPersons = PersonProvider.FromFile(filePath);
         }
 
         private void PopulateDataGrid(List<DynamicPerson> persons)
         {
-            this.SearchResults.ItemsSource = persons;
+            SearchResults.ItemsSource = new DynamicList<DynamicPerson>(persons);
         }
 
         private List<DynamicPerson> GetPersonsBySearchTerm(string searchTerm)
@@ -55,9 +55,7 @@ namespace Searcher
 
         private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            List<DynamicPerson> filteredPersons = GetPersonsBySearchTerm(this.SearchTextBox.Text);
-
-            this.PopulateDataGrid(filteredPersons);
+            PopulateDataGrid(GetPersonsBySearchTerm(this.SearchTextBox.Text));
         }
 
         /* FUTURE: This is quite a complex code, that acheives just about the default behavior. It's here, since in the future we would like
@@ -115,14 +113,14 @@ namespace Searcher
             
             // First grid population
             PopulateDataGrid(originalPersons);
+            //!! SearchResults.HeadersVisibility = DataGridHeadersVisibility.All;
             SearchResults.AutoGenerateColumns = true;
 
-            //Future- popup with key combo
-            //this.Visibility = Visibility.Hidden;
+            //!! Future - popup with key combo
+            //!! this.Visibility = Visibility.Hidden;
 
             // Focus on the textbox to improve UX
             SearchTextBox.Focus();
-            
         }
     }
 }
