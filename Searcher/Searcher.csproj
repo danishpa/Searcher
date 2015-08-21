@@ -67,7 +67,7 @@
     </Compile>
     <Compile Include="Dynamics\Dynamics.cs" />
     <Compile Include="Searcher\DynamicPerson.cs" />
-    <Compile Include="Exceptions.cs" />
+    <Compile Include="Searcher\Exceptions.cs" />
     <Compile Include="Searcher\ISearchable.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -75,7 +75,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Person.cs" />
     <Compile Include="Searcher\PersonProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

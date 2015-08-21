@@ -50,8 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="PersonTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Searcher\Common.cs" />
+    <Compile Include="Searcher\DynamicPersonTests.cs" />
+    <Compile Include="Searcher\SearchableExtensionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Searcher\Searcher.csproj">
