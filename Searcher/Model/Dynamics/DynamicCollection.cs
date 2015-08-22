@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Dynamic;
 using System.Collections.ObjectModel;
@@ -6,8 +7,8 @@ using System.ComponentModel;
 
 namespace Searcher.Model.Dynamics
 {
-    public class DynamicCollection<T> : ObservableCollection<T>, ITypedList
-        where T : DynamicObject
+    public class DynamicCollection<T> : ObservableCollection<T>, ITypedList, ICloneable
+        where T : DynamicObject, ICloneable
     {
         private string TypedListName;
 
@@ -20,6 +21,11 @@ namespace Searcher.Model.Dynamics
             : this(collection)
         {
             TypedListName = name;
+        }
+
+        public object Clone()
+        {
+            return new DynamicCollection<T>(this.Select(item => (T)item.Clone()));
         }
 
         public PropertyDescriptorCollection GetItemProperties(PropertyDescriptor[] listAccessors)

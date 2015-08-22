@@ -33,7 +33,6 @@ namespace Searcher.View
         private CultureInfo hebrewLanguage = null;
         private CultureInfo previousLanguage = null;
         private Settings SettingsWindow = null;
-        private new SearcherViewModel DataContext; // Hide DataContext
 
         private void InitializeLanguageParameters()
         {
@@ -114,7 +113,8 @@ namespace Searcher.View
             InitializeDataContext();
 
             // First grid population
-            PopulateDataGrid(DataContext.OriginalPersons);
+            //SearchResults.ItemsSource = DataContext.DisplayedPersons;
+            //SearchTextBox.Text = DataContext.SearchText;
 
             //!! SearchResults.HeadersVisibility = DataGridHeadersVisibility.All;
             SearchResults.AutoGenerateColumns = true;
@@ -126,28 +126,6 @@ namespace Searcher.View
             SearchTextBox.Focus();
         }
 
-
-        private void PopulateDataGrid(DynamicCollection<DynamicPerson> persons)
-        {
-            SearchResults.ItemsSource = persons;
-        }
-
-        private DynamicCollection<DynamicPerson> GetPersonsBySearchTerm(string searchTerm)
-        {
-            // TODO: 
-            // 1. Smarter search logic - Fuzzy search - Consecutive letters
-            // 2. Searching in english tries to convert characters to hebrew and search
-            // 3. But if the searched string is in english, search in english
-            // 4. Try to order by relevance (SearchAll should return a float which represents how good is the match)
-
-            string[] whiteSpaces = { " " };
-            string[] searchTerms = searchTerm.Split(whiteSpaces, StringSplitOptions.RemoveEmptyEntries);
-
-            // Return all persons, for which all the search terms appear in their properties
-            return new DynamicCollection<DynamicPerson>(DataContext.OriginalPersons
-                .Where(person => person.SearchAll(searchTerms))
-                .ToList());
-        }
         private void SaveWindowPositionToProperties(double top, double left)
         {
             Properties.Settings.Default.LastPosition_Top = top;
@@ -169,11 +147,6 @@ namespace Searcher.View
             //        we will increase it to a minimum threshold (1-2 entries)
             // If user never resized the window
             //    Window size corrosponds to number of entries until a maximum (20?) reached
-        }
-
-        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            PopulateDataGrid(GetPersonsBySearchTerm(this.SearchTextBox.Text));
         }
 
         /* FUTURE: This is quite a complex code, that acheives just about the default behavior. It's here, since in the future we would like

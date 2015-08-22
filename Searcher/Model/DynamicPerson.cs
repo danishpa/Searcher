@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Dynamic;
 
-using Searcher.Model.Dynamics;
-
 namespace Searcher.Model
 {
-    public class DynamicPerson : DynamicObject, ISearchable
+    public class DynamicPerson : DynamicObject, ISearchable, ICloneable
     {
         private string[] _headers;
         private string[] _fields;
@@ -51,6 +49,13 @@ namespace Searcher.Model
         public override IEnumerable<string> GetDynamicMemberNames()
         {
             return _headers;
+        }
+
+        public object Clone()
+        {
+            return new DynamicPerson(
+                (string[])_headers.Clone(),
+                (string[])_fields.Clone());
         }
     }
 }

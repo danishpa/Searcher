@@ -3,61 +3,112 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
-
 using Searcher.Model;
 using Searcher.Model.Dynamics;
 using System.Windows;
 
 namespace Searcher.ViewModel
 {
-    public enum PersonProviderSupportedFileTypes
-    {
-        Unknown = 0,
-        CSV
-    }
-
     public class SearcherViewModel : DependencyObject, IClosableViewModel, INotifyPropertyChanged
     {
-        #region Members
-        internal static char CSVSeperator = ',';
-        internal static readonly string SuffixSeperator = ".";
-
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion // Members
 
-        #region DependenyProperties
+        #region PersonSourcePathTextProperty
+        private string _PersonSourcePath;
+        public string PersonSourcePathText
+        {
+            get
+            {
+                return _PersonSourcePath;
+            }
+            set
+            {
+                if (_PersonSourcePath != value)
+                {
+                    _PersonSourcePath = value;
+                    NotifyPropertyChanged("PersonSourcePathText"); // Not sure if neccesary in all cases
+
+                    OriginalPersons = PersonProvider.FromFile(_PersonSourcePath);
+                    NotifyPropertyChanged("OriginalPersons"); // Not sure if neccesary in all cases
+                }
+            }
+        }
+        #endregion // PersonSourcePathTextProperty
+
+        #region SearchTextProperty
+        private string _SearchText;
+        public string SearchText
+        {
+            get
+            {
+                if (_SearchText == null)
+                {
+                    return string.Empty;
+                }
+                return _SearchText;
+            }
+            set
+            {
+                if (_SearchText != value)
+                {
+                    _SearchText = value;
+                    NotifyPropertyChanged("SearchText"); // Not sure if neccesary in all cases
+
+                    if (OriginalPersons != null)
+                    {
+                        DisplayedPersons = OriginalPersons.GetPersonsBySearchTerm(_SearchText);
+                        NotifyPropertyChanged("DisplayedPersons"); // Not sure if neccesary in all cases
+                    }
+                }
+            }
+        }
+        #endregion // SearchTextProperty
+
+        #region DisplayedPersonsProperty
         public DynamicCollection<DynamicPerson> DisplayedPersons
         {
             get { return (DynamicCollection<DynamicPerson>)GetValue(DisplayedPersonsProperty); }
             set { SetValue(DisplayedPersonsProperty, value); }
         }
-
-        public static readonly DependencyProperty DisplayedPersonsProperty =
-        DependencyProperty.Register(
+        public static readonly DependencyProperty DisplayedPersonsProperty = DependencyProperty.Register(
             "DisplayedPersons",
             typeof(DynamicCollection<DynamicPerson>),
             typeof(SearcherViewModel),
             new UIPropertyMetadata(null));
+        #endregion // DisplayedPersonsProperty
 
-        internal DynamicCollection<DynamicPerson> OriginalPersons;
-        #endregion // DependenyProperties
-
-        #region Static Members
-        internal static Dictionary<PersonProviderSupportedFileTypes, Func<string, DynamicCollection<DynamicPerson>>> ProviderTypeToFunc =
-            new Dictionary<PersonProviderSupportedFileTypes, Func<string, DynamicCollection<DynamicPerson>>>()
+        #region OriginalPersonsProperty
+        public DynamicCollection<DynamicPerson> OriginalPersons
+        {
+            get
             {
-                { PersonProviderSupportedFileTypes.CSV, FromCSVFile }
-            };
-        #endregion // Static Members
+                return (DynamicCollection<DynamicPerson>)GetValue(OriginalPersonsProperty);
+            }
+            set
+            {
+                SetValue(OriginalPersonsProperty, value);
+                if (OriginalPersons != null)
+                {
+                    DisplayedPersons = OriginalPersons.GetPersonsBySearchTerm(SearchText);
+                }
+            }
+        }
+        public static readonly DependencyProperty OriginalPersonsProperty = DependencyProperty.Register(
+            "OriginalPersons",
+            typeof(DynamicCollection<DynamicPerson>),
+            typeof(SearcherViewModel),
+            new UIPropertyMetadata(null));
+        #endregion // DisplayedPersonsProperty
 
         public SearcherViewModel()
         {
             InitializeRunStatus();
 
             // Load persons from a file and into the originalPersons
-            LoadPersonsFromFile(@"C:\Projects\Searcher\Searcher\samples\people_hebrew.csv");
+            // Changing SourchPath, automatically loads OriginalPersons, which automatically changes DisplayedPersons
+            PersonSourcePathText = @"C:\Projects\Searcher\Searcher\samples\people_hebrew.csv";
+
         }
 
         private void InitializeRunStatus()
@@ -65,45 +116,12 @@ namespace Searcher.ViewModel
             Properties.Settings.Default.FirstRun = false;
         }
 
-        private void LoadPersonsFromFile(string filePath)
-        {
-            OriginalPersons = FromFile(filePath);
-        }
-
-        internal void RaisePropertyChanged(string property)
+        internal void NotifyPropertyChanged(string property)
         {
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
-
-        #region Static Methods
-        public static DynamicCollection<DynamicPerson> FromCSVFile(string filePath)
-        {
-            string[] lines = File.ReadAllLines(filePath, Encoding.UTF8);
-            string[] headers = lines[0].Split(CSVSeperator);
-
-            // Skip first line (containing the headers)
-            var data = from line in lines.Skip(1)
-                       let elements = line.Split(CSVSeperator)
-                       select new DynamicPerson(headers, elements);
-
-            return new DynamicCollection<DynamicPerson>(data.ToList());
-        }
-
-        public static DynamicCollection<DynamicPerson> FromFile(string filePath)
-        {
-            PersonProviderSupportedFileTypes fileType = PersonProviderSupportedFileTypes.Unknown;
-            string fileSuffix = Path.GetExtension(filePath).Replace(SuffixSeperator, String.Empty).ToUpper();
-
-            if (!Enum.TryParse(fileSuffix, out fileType)
-                 || fileType == PersonProviderSupportedFileTypes.Unknown)
-            {
-                throw new UnrecognizedFileTypeException();
-            }
-            return ProviderTypeToFunc[fileType](filePath);
-        }
-        #endregion // Static Methods
     }
 }
