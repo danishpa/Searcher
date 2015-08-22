@@ -27,12 +27,15 @@ namespace Searcher.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static Dictionary<PersonProviderSupportedFileTypes, Func<string, DynamicList<DynamicPerson>>> ProviderTypeToFunc =
+        #endregion // Members
+
+        #region Static Members
+        internal static Dictionary<PersonProviderSupportedFileTypes, Func<string, DynamicList<DynamicPerson>>> ProviderTypeToFunc =
             new Dictionary<PersonProviderSupportedFileTypes, Func<string, DynamicList<DynamicPerson>>>()
             {
                 { PersonProviderSupportedFileTypes.CSV, FromCSVFile }
             };
-        #endregion // Members
+        #endregion // Static Members
 
         public SearcherViewModel()
         {
@@ -80,6 +83,6 @@ namespace Searcher.ViewModel
             }
             return ProviderTypeToFunc[fileType](filePath);
         }
-        #endregion
+        #endregion // Static Methods
     }
 }
