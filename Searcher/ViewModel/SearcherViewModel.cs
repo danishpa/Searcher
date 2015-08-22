@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace Searcher.ViewModel
 {
-    public class SearcherViewModel : DependencyObject, IClosableViewModel, INotifyPropertyChanged
+    public class SearcherViewModel : DependencyObject, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
