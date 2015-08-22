@@ -1,6 +1,4 @@
-﻿
-
-<Window x:Class="Searcher.MainWindow"
+﻿<Window x:Class="Searcher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="125" MinHeight="100" MaxHeight="1000" Width="300" MinWidth="300" MaxWidth="800"  ShowInTaskbar="False" WindowStyle="None" Background="Transparent" Closed="Window_Closed" MouseDown="Window_MouseDown" >
@@ -17,10 +15,9 @@
         </DataGrid>
         <DockPanel VerticalAlignment="Bottom" Height="25" LastChildFill="True">
             <Button x:Name="SettingsButton" Width="25" HorizontalAlignment="Left" Click="SettingsButton_Click">
-                <Image Source="/Resources/SettingsIcon.ico" Width="20" Height="20" />
+                <Image Source="/View/Resources/SettingsIcon.ico" Width="20" Height="20" />
             </Button>
             <TextBox Name="SearchTextBox" TextWrapping="Wrap" TextAlignment="Right" TextChanged="SearchTextBox_TextChanged" GotFocus="SearchTextBox_GotFocus"/>
         </DockPanel>
     </Grid>
-
 </Window>
