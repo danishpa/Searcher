@@ -20,3 +20,4 @@ TestResults/*
 TestSearcher/bin/*
 TestSearcher/obj/*
 >>>>>>> master
+SearcherTests/obj/Debug/build.force
