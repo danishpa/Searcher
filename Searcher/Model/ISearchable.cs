@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Searcher.Model.Dynamics;
 
 namespace Searcher.Model
 {

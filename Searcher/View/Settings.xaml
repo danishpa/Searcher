@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Searcher"
         mc:Ignorable="d"
-        Title="Settings" Height="300" Width="300" ResizeMode="NoResize" ShowInTaskbar="False" Icon="Resources/SettingsIcon.ico" WindowStartupLocation="CenterOwner" >
+        Title="Settings" Height="300" Width="300" ResizeMode="NoResize" ShowInTaskbar="False" Icon="Resources/SettingsIcon.ico" >
     <Grid>
         <Button x:Name="browseButton" Content="B" HorizontalAlignment="Left" Margin="259,10,0,0" VerticalAlignment="Top" Width="25" Height="25"/>
-        <TextBox x:Name="filePathTextBox" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="244" IsEnabled="False"/>
+        <TextBlock x:Name="filePathTextBox" Text="{Binding PersonSourcePathText}"  HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" IsEnabled="False"/>
     </Grid>
 </Window>

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Searcher.ViewModel;
+
 namespace Searcher.View
 {
     /// <summary>
@@ -19,9 +21,11 @@ namespace Searcher.View
     /// </summary>
     public partial class Settings : Window
     {
-        public Settings()
+        public Settings(SearcherViewModel dataContext)
         {
             InitializeComponent();
+
+            DataContext = dataContext;
         }
     }
 }

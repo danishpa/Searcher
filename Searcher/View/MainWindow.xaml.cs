@@ -16,12 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.ComponentModel;
 
-using Searcher;
 using Searcher.ViewModel;
-using Searcher.Model;
-using Searcher.Model.Dynamics;
 
 namespace Searcher.View
 {
@@ -54,7 +50,7 @@ namespace Searcher.View
         
         private void InitializeSubWindows()
         {
-            SettingsWindow = new Settings();
+            
         }
 
         private void InitializePositionWindow()
@@ -106,11 +102,12 @@ namespace Searcher.View
         public MainWindow()
         {
             InitializeComponent();
+            InitializeDataContext();
             InitializeSubWindows();
             InitializeLanguageParameters();
             InitializePositionWindow();
             InitializeKeyBindings();
-            InitializeDataContext();
+            
 
             // First grid population
             //SearchResults.ItemsSource = DataContext.DisplayedPersons;
@@ -178,13 +175,10 @@ namespace Searcher.View
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (SettingsWindow.IsLoaded)
-            {
-                SettingsWindow.Close();
-            }
-            
             SaveWindowPositionToProperties();
             Properties.Settings.Default.Save();
+
+            Application.Current.Shutdown();
         }
 
         // Handles moving around the window - This code is not very robust.
@@ -200,18 +194,21 @@ namespace Searcher.View
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!SettingsWindow.IsLoaded)
+            if (SettingsWindow == null)
             {
-                SettingsWindow = new Settings();
-            }
+                SettingsWindow = new Settings((SearcherViewModel)DataContext);
 
-            if (SettingsWindow.IsVisible)
-            {
-                SettingsWindow.Hide();
+                // Position Settings Window
+                //!! TODO: This is not a very good code - what happens if MainWindow is too low, or too to the left?
+                SettingsWindow.Top = Math.Max(0, Top);
+                SettingsWindow.Left = Math.Max(0, Left - SettingsWindow.Width);
+
+                SettingsWindow.Show();
             }
             else
             {
-                SettingsWindow.Show();
+                SettingsWindow.Close();
+                SettingsWindow = null;
             }
         }
     }
