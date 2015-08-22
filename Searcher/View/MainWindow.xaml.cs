@@ -30,6 +30,11 @@ namespace Searcher.View
         private CultureInfo previousLanguage = null;
         private Settings SettingsWindow = null;
 
+        internal void InitializeDataContext()
+        {
+            DataContext = new SearcherViewModel();
+        }
+
         private void InitializeLanguageParameters()
         {
             string cultureString = "he";
@@ -46,11 +51,6 @@ namespace Searcher.View
             {
                 Trace.WriteLine("Culture {0} not found", cultureString);
             }
-        }
-        
-        private void InitializeSubWindows()
-        {
-            
         }
 
         private void InitializePositionWindow()
@@ -94,24 +94,13 @@ namespace Searcher.View
             // Ctrl+R -> Refresh from file
         }
 
-        internal void InitializeDataContext()
-        {
-            DataContext = new SearcherViewModel();
-        }
-
         public MainWindow()
         {
             InitializeComponent();
             InitializeDataContext();
-            InitializeSubWindows();
             InitializeLanguageParameters();
             InitializePositionWindow();
             InitializeKeyBindings();
-            
-
-            // First grid population
-            //SearchResults.ItemsSource = DataContext.DisplayedPersons;
-            //SearchTextBox.Text = DataContext.SearchText;
 
             //!! SearchResults.HeadersVisibility = DataGridHeadersVisibility.All;
             SearchResults.AutoGenerateColumns = true;
@@ -146,11 +135,13 @@ namespace Searcher.View
             //    Window size corrosponds to number of entries until a maximum (20?) reached
         }
 
-        /* FUTURE: This is quite a complex code, that acheives just about the default behavior. It's here, since in the future we would like
-         * To handle cases were the window is hidden, and when it comes back from being hidden, the new input language is hebrew.
-         * This must be done programatically */
-
-        // This checks if the last used input language isn't hebrew, and sets the current input language accordingly
+        /// <summary>
+        /// This checks if the last used input language isn't hebrew, and sets the current input language accordingly
+        /// 
+        /// This is quite a complex code, that achieves just about the default behavior. It's here, since in the future we would like
+        /// To handle cases were the window is hidden, and when it comes back from being hidden, the new input language is hebrew.
+        /// This must be done programatically
+        /// </summary>
         private void SearchTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if ((previousLanguage != null) && !previousLanguage.DisplayName.Equals(hebrewLanguage.DisplayName))
@@ -163,8 +154,10 @@ namespace Searcher.View
             }
         }
 
-        /* This event handler deals with the changing of input language - it remembers the new language, so if the user
-         * switched input language, then search box lost focus, when we regain focus, use the new language the user picked. */
+        /// <summary>
+        /// This event handler deals with the changing of input language - it remembers the new language, so if the user
+        /// switched input language, then search box lost focus, when we regain focus, use the new language the user picked.
+        /// </summary>
         private void Current_InputLanguageChanged(object sender, InputLanguageEventArgs e)
         {
             if (SearchTextBox.IsFocused)
@@ -173,6 +166,9 @@ namespace Searcher.View
             }
         }
 
+        /// <summary>
+        /// Called when window is closed. Saves position properties and closes the application
+        /// </summary>
         private void Window_Closed(object sender, EventArgs e)
         {
             SaveWindowPositionToProperties();
@@ -181,7 +177,9 @@ namespace Searcher.View
             Application.Current.Shutdown();
         }
 
-        // Handles moving around the window - This code is not very robust.
+        /// <summary>
+        /// Handles moving around the window - This code is not very robust.
+        /// </summary>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
