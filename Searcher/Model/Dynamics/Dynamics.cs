@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Dynamic;
 using System.ComponentModel;
+
 
 namespace Searcher.Model.Dynamics
 {
@@ -48,37 +46,6 @@ namespace Searcher.Model.Dynamics
         public override void SetValue(object component, object value)
         {
             throw new NotImplementedException();
-        }
-    }
-    
-    public class DynamicList<T> : List<T>, ITypedList
-        where T : DynamicObject
-    {
-        public DynamicList(IEnumerable<T> collection)
-            : base(collection)
-        {
-        }
-
-        public PropertyDescriptorCollection GetItemProperties(PropertyDescriptor[] listAccessors)
-        {
-            DynamicPropertyDescriptor[] dynamicDescriptors = { };
-
-            if (this.Any())
-            {
-                var firstItem = this[0];
-
-                dynamicDescriptors =
-                    firstItem.GetDynamicMemberNames()
-                    .Select(p => new DynamicPropertyDescriptor(p))
-                    .ToArray();
-            }
-
-            return new PropertyDescriptorCollection(dynamicDescriptors);
-        }
-
-        public string GetListName(PropertyDescriptor[] listAccessors)
-        {
-            return null;
         }
     }
 }

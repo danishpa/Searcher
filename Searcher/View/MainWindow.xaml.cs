@@ -58,11 +58,6 @@ namespace Searcher.View
             SettingsWindow = new Settings();
         }
 
-        private void InitializeRunStatus()
-        {
-            Properties.Settings.Default.FirstRun = false;
-        }
-
         private void InitializePositionWindow()
         {
             double maxHeight = SystemParameters.WorkArea.Bottom;
@@ -114,13 +109,12 @@ namespace Searcher.View
             InitializeComponent();
             InitializeSubWindows();
             InitializeLanguageParameters();
-            InitializeRunStatus();
             InitializePositionWindow();
             InitializeKeyBindings();
             InitializeDataContext();
 
             // First grid population
-            PopulateDataGrid(DataContext.Persons);
+            PopulateDataGrid(DataContext.OriginalPersons);
 
             //!! SearchResults.HeadersVisibility = DataGridHeadersVisibility.All;
             SearchResults.AutoGenerateColumns = true;
@@ -133,12 +127,12 @@ namespace Searcher.View
         }
 
 
-        private void PopulateDataGrid(List<DynamicPerson> persons)
+        private void PopulateDataGrid(DynamicCollection<DynamicPerson> persons)
         {
-            SearchResults.ItemsSource = new DynamicList<DynamicPerson>(persons);
+            SearchResults.ItemsSource = persons;
         }
 
-        private List<DynamicPerson> GetPersonsBySearchTerm(string searchTerm)
+        private DynamicCollection<DynamicPerson> GetPersonsBySearchTerm(string searchTerm)
         {
             // TODO: 
             // 1. Smarter search logic - Fuzzy search - Consecutive letters
@@ -150,7 +144,9 @@ namespace Searcher.View
             string[] searchTerms = searchTerm.Split(whiteSpaces, StringSplitOptions.RemoveEmptyEntries);
 
             // Return all persons, for which all the search terms appear in their properties
-            return DataContext.Persons.Where(person => person.SearchAll(searchTerms)).ToList();
+            return new DynamicCollection<DynamicPerson>(DataContext.OriginalPersons
+                .Where(person => person.SearchAll(searchTerms))
+                .ToList());
         }
         private void SaveWindowPositionToProperties(double top, double left)
         {

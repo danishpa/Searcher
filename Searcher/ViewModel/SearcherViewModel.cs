@@ -8,6 +8,7 @@ using System.ComponentModel;
 
 using Searcher.Model;
 using Searcher.Model.Dynamics;
+using System.Windows;
 
 namespace Searcher.ViewModel
 {
@@ -17,21 +18,35 @@ namespace Searcher.ViewModel
         CSV
     }
 
-    public class SearcherViewModel : IClosableViewModel, INotifyPropertyChanged
+    public class SearcherViewModel : DependencyObject, IClosableViewModel, INotifyPropertyChanged
     {
         #region Members
         internal static char CSVSeperator = ',';
         internal static readonly string SuffixSeperator = ".";
 
-        public DynamicList<DynamicPerson> Persons;
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         #endregion // Members
 
+        #region DependenyProperties
+        public DynamicCollection<DynamicPerson> DisplayedPersons
+        {
+            get { return (DynamicCollection<DynamicPerson>)GetValue(DisplayedPersonsProperty); }
+            set { SetValue(DisplayedPersonsProperty, value); }
+        }
+
+        public static readonly DependencyProperty DisplayedPersonsProperty =
+        DependencyProperty.Register(
+            "DisplayedPersons",
+            typeof(DynamicCollection<DynamicPerson>),
+            typeof(SearcherViewModel),
+            new UIPropertyMetadata(null));
+
+        internal DynamicCollection<DynamicPerson> OriginalPersons;
+        #endregion // DependenyProperties
+
         #region Static Members
-        internal static Dictionary<PersonProviderSupportedFileTypes, Func<string, DynamicList<DynamicPerson>>> ProviderTypeToFunc =
-            new Dictionary<PersonProviderSupportedFileTypes, Func<string, DynamicList<DynamicPerson>>>()
+        internal static Dictionary<PersonProviderSupportedFileTypes, Func<string, DynamicCollection<DynamicPerson>>> ProviderTypeToFunc =
+            new Dictionary<PersonProviderSupportedFileTypes, Func<string, DynamicCollection<DynamicPerson>>>()
             {
                 { PersonProviderSupportedFileTypes.CSV, FromCSVFile }
             };
@@ -39,14 +54,20 @@ namespace Searcher.ViewModel
 
         public SearcherViewModel()
         {
+            InitializeRunStatus();
+
             // Load persons from a file and into the originalPersons
             LoadPersonsFromFile(@"C:\Projects\Searcher\Searcher\samples\people_hebrew.csv");
+        }
 
+        private void InitializeRunStatus()
+        {
+            Properties.Settings.Default.FirstRun = false;
         }
 
         private void LoadPersonsFromFile(string filePath)
         {
-            Persons = FromFile(filePath);
+            OriginalPersons = FromFile(filePath);
         }
 
         internal void RaisePropertyChanged(string property)
@@ -58,7 +79,7 @@ namespace Searcher.ViewModel
         }
 
         #region Static Methods
-        public static DynamicList<DynamicPerson> FromCSVFile(string filePath)
+        public static DynamicCollection<DynamicPerson> FromCSVFile(string filePath)
         {
             string[] lines = File.ReadAllLines(filePath, Encoding.UTF8);
             string[] headers = lines[0].Split(CSVSeperator);
@@ -68,10 +89,10 @@ namespace Searcher.ViewModel
                        let elements = line.Split(CSVSeperator)
                        select new DynamicPerson(headers, elements);
 
-            return new DynamicList<DynamicPerson>(data.ToList());
+            return new DynamicCollection<DynamicPerson>(data.ToList());
         }
 
-        public static DynamicList<DynamicPerson> FromFile(string filePath)
+        public static DynamicCollection<DynamicPerson> FromFile(string filePath)
         {
             PersonProviderSupportedFileTypes fileType = PersonProviderSupportedFileTypes.Unknown;
             string fileSuffix = Path.GetExtension(filePath).Replace(SuffixSeperator, String.Empty).ToUpper();

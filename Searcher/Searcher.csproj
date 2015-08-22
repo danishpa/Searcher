@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Dynamics\DynamicCollection.cs" />
     <Compile Include="ViewModel\IClosableVieModel.cs" />
     <Compile Include="ViewModel\SearcherViewModel.cs" />
     <Compile Include="View\Settings.xaml.cs">
