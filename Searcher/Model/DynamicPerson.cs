@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Dynamic;
 
-namespace Searcher
+using Searcher.Model.Dynamics;
+
+namespace Searcher.Model
 {
     public class DynamicPerson : DynamicObject, ISearchable
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Searcher
+namespace Searcher.Model
 {
     public class SearcherException : Exception { }
 

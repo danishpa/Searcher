@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Searcher
+namespace Searcher.Model
 {
     public interface ISearchable
     {

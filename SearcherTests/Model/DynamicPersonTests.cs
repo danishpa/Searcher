@@ -3,7 +3,10 @@ using System;
 using Microsoft.CSharp.RuntimeBinder;
 using System.Linq;
 
-namespace Searcher.Tests
+using Searcher;
+using Searcher.Model;
+
+namespace Searcher.Model.Tests
 {
     [TestClass()]
     public class DynamicPersonTests

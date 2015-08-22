@@ -4,7 +4,7 @@ using System.Linq;
 using System.Dynamic;
 using System.ComponentModel;
 
-namespace Dynamics
+namespace Searcher.Model.Dynamics
 {
     public class DynamicPropertyDescriptor : PropertyDescriptor
     {

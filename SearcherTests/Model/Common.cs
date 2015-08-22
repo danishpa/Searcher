@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Searcher;
+using Searcher.Model;
 
-namespace Searcher.Tests
+namespace Searcher.Model.Tests
 {
     public static class Common
     {

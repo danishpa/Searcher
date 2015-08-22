@@ -16,20 +16,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
-using Dynamics;
+using Searcher;
+using Searcher.ViewModel;
+using Searcher.Model;
+using Searcher.Model.Dynamics;
 
-namespace Searcher
+namespace Searcher.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<DynamicPerson> originalPersons;
         private CultureInfo hebrewLanguage = null;
         private CultureInfo previousLanguage = null;
         private Settings SettingsWindow = null;
+        private new SearcherViewModel DataContext; // Hide DataContext
 
         private void InitializeLanguageParameters()
         {
@@ -99,6 +103,12 @@ namespace Searcher
             // Ctrl+O -> Open location to load persons from
             // Ctrl+R -> Refresh from file
         }
+
+        internal void InitializeDataContext()
+        {
+            DataContext = new SearcherViewModel();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -107,12 +117,11 @@ namespace Searcher
             InitializeRunStatus();
             InitializePositionWindow();
             InitializeKeyBindings();
+            InitializeDataContext();
 
-            // Load persons from a file and into the originalPersons
-            LoadPersonsFromFile(@"C:\Projects\Searcher\Searcher\samples\people_hebrew.csv");
-            
             // First grid population
-            PopulateDataGrid(originalPersons);
+            PopulateDataGrid(DataContext.Persons);
+
             //!! SearchResults.HeadersVisibility = DataGridHeadersVisibility.All;
             SearchResults.AutoGenerateColumns = true;
 
@@ -123,10 +132,6 @@ namespace Searcher
             SearchTextBox.Focus();
         }
 
-        private void LoadPersonsFromFile(string filePath)
-        {
-            originalPersons = PersonProvider.FromFile(filePath);
-        }
 
         private void PopulateDataGrid(List<DynamicPerson> persons)
         {
@@ -145,7 +150,7 @@ namespace Searcher
             string[] searchTerms = searchTerm.Split(whiteSpaces, StringSplitOptions.RemoveEmptyEntries);
 
             // Return all persons, for which all the search terms appear in their properties
-            return originalPersons.Where(person => person.SearchAll(searchTerms)).ToList();
+            return DataContext.Persons.Where(person => person.SearchAll(searchTerms)).ToList();
         }
         private void SaveWindowPositionToProperties(double top, double left)
         {
