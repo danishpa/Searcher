@@ -59,6 +59,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\Dynamics\DynamicCollection.cs" />
     <Compile Include="Model\PersonProvider.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\SearcherViewModel.cs" />
     <Compile Include="View\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>

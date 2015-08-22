@@ -192,24 +192,43 @@ namespace Searcher.View
             }
         }
 
+        #region Settings Window
+
+        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SettingsWindow = null;
+        }
+
+        private void ShowSettings()
+        {
+            SettingsWindow = new Settings((SearcherViewModel)DataContext);
+            SettingsWindow.Closing += SettingsWindow_Closing;
+
+            // Position Settings Window
+            //!! TODO: This is not a very good code - what happens if MainWindow is too low, or too to the left?
+            SettingsWindow.Top = Math.Max(0, Top);
+            SettingsWindow.Left = Math.Max(0, Left - SettingsWindow.Width);
+
+            SettingsWindow.Show();
+        }
+
+        private void HideSettings()
+        {
+            SettingsWindow.Close();
+            SettingsWindow = null;
+        }
+
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             if (SettingsWindow == null)
             {
-                SettingsWindow = new Settings((SearcherViewModel)DataContext);
-
-                // Position Settings Window
-                //!! TODO: This is not a very good code - what happens if MainWindow is too low, or too to the left?
-                SettingsWindow.Top = Math.Max(0, Top);
-                SettingsWindow.Left = Math.Max(0, Left - SettingsWindow.Width);
-
-                SettingsWindow.Show();
+                ShowSettings();
             }
             else
             {
-                SettingsWindow.Close();
-                SettingsWindow = null;
+                HideSettings();
             }
         }
+        #endregion // Settings
     }
 }
