@@ -84,18 +84,18 @@ namespace Searcher.Model.Tests
         {
             string stringToSearch = "abcdefghi";
 
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "a"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "i"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "d"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "ab"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "bc"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "abc"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "cde"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "ghi"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "defg"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "abcde"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "bcdefgh"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, stringToSearch));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "a"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "i"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "d"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "ab"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "bc"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "abc"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "cde"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "ghi"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "defg"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "abcde"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "bcdefgh"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, stringToSearch));
         }
 
         [TestMethod()]
@@ -103,17 +103,17 @@ namespace Searcher.Model.Tests
         {
             string stringToSearch = "abcdefghi";
 
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "ai"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "hi"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "ah"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "bi"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "bi"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "acdgh"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "acefi"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "abcghi"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "abcdei"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, "abcdehi"));
-            Assert.IsTrue(SearchableExtension.FuzzyContains(stringToSearch, stringToSearch));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "ai"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "hi"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "ah"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "bi"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "bi"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "acdgh"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "acefi"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "abcghi"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "abcdei"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, "abcdehi"));
+            Assert.IsTrue(SearchableExtension.InnerFuzzyContains(stringToSearch, stringToSearch));
         }
 
         [TestMethod()]
