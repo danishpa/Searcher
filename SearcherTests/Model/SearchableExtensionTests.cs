@@ -99,18 +99,40 @@ namespace Searcher.Model.Tests
         }
 
         [TestMethod()]
-        public void FuzzyContains_UnicodeContains_Test()
+        public void FuzzyContains_Fuzzy_Valid_Terms_Test()
+        {
+            string stringToSearch = "abcdefghi";
+
+            Assert.IsTrue(stringToSearch.FuzzyContains("ai"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("hi"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("ah"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("bi"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("bi"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("acdgh"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("acefi"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("abcghi"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("abcdei"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("abcdehi"));
+            Assert.IsTrue(stringToSearch.FuzzyContains(stringToSearch));
+        }
+
+        [TestMethod()]
+        public void FuzzyContains_Unicode_Test()
         {
             string stringToSearch = "אבגדהו";
 
             Assert.IsTrue(stringToSearch.FuzzyContains("בגד"));
             Assert.IsTrue(stringToSearch.FuzzyContains("אב"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("אגה"));
             Assert.IsTrue(stringToSearch.FuzzyContains("דה"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("אבדו"));
             Assert.IsTrue(stringToSearch.FuzzyContains(stringToSearch));
+            Assert.IsFalse(stringToSearch.FuzzyContains("זחט"));
+            Assert.IsFalse(stringToSearch.FuzzyContains("שיט"));
         }
 
         [TestMethod()]
-        public void FuzzyContains_EmptyTerms_Test()
+        public void FuzzyContains_Empty_Terms_Test()
         {
             string testString = "abcdefghi";
             string emptyString = "";
