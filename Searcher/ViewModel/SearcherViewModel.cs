@@ -156,7 +156,6 @@ namespace Searcher.ViewModel
         #endregion // Initialization
 
         #region Commands
-
         public RelayCommand BrowseSourcePath { get; set; }
 
         internal void BrowseSourcePath_Execute(object parameter)
@@ -172,7 +171,7 @@ namespace Searcher.ViewModel
                     PersonSourcePathText = GetFileFromDefaultFileDialog();
                 }
 
-                SettingsStatusMessageText = string.Empty;
+                SettingsStatusMessageText = String.Empty;
             }
             catch (SearcherException e)
             {
@@ -199,7 +198,7 @@ namespace Searcher.ViewModel
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             string selectedFileName = string.Empty;
 
-            if ((PersonSourcePathText != null) && (PersonSourcePathText != string.Empty))
+            if (!string.IsNullOrEmpty(PersonSourcePathText))
             {
                 dialog.InitialDirectory = Path.GetDirectoryName(PersonSourcePathText);
             }
@@ -225,10 +224,9 @@ namespace Searcher.ViewModel
             OpenFileDialog dialog = new OpenFileDialog();
             string selectedFileName = string.Empty;
 
-            if (PersonSourcePathText != null)
+            if (string.IsNullOrEmpty(PersonSourcePathText))
             {
                 dialog.InitialDirectory = Path.GetDirectoryName(PersonSourcePathText);
-
             }
             dialog.Filter = "CSV Files|*.csv";
             dialog.CheckPathExists = true;
