@@ -10,9 +10,29 @@ namespace Searcher.Model
     
     public static class SearchableExtension
     {
-        public static bool FuzzyContains(this string property, string searchTerm)
+        /// <summary>
+        /// Checks if the string receives fuzzy-ly contains the searchTerm
+        /// ABCDEFGHI, BCGH -> true (because BC and GH appear in the string, even if there are other characters in the middle)
+        /// ABCDEFGHI, DCBA -> false (because the order is incorrect)
+        /// </summary>
+        /// <remarks>Extends <typeparamref name="string"/> type</remarks>
+        public static bool FuzzyContains(this string stringToSearch, string searchTerm)
         {
-            return property.Contains(searchTerm);
+            int i = 0, j = 0;
+
+            if (stringToSearch.Contains(searchTerm))
+            {
+                return true;
+            }
+
+            for (i = 0, j = 0; (i < stringToSearch.Length) && (j < searchTerm.Length); i++)
+            {
+                if (stringToSearch[i] == searchTerm[j])
+                {
+                    ++j;
+                }
+            }
+            return (searchTerm.Length <= j);
         }
 
         public static int Search(this ISearchable searchable, string[] searchTerms)
