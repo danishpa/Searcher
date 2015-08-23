@@ -1,9 +1,0 @@
-C:\Projects\Searcher\SearcherTests\bin\Debug\SearcherTests.dll
-C:\Projects\Searcher\SearcherTests\bin\Debug\SearcherTests.pdb
-C:\Projects\Searcher\SearcherTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
-C:\Projects\Searcher\SearcherTests\bin\Debug\Searcher.exe
-C:\Projects\Searcher\SearcherTests\bin\Debug\Searcher.pdb
-C:\Projects\Searcher\SearcherTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
-C:\Projects\Searcher\SearcherTests\obj\Debug\SearcherTests.csprojResolveAssemblyReference.cache
-C:\Projects\Searcher\SearcherTests\obj\Debug\SearcherTests.dll
-C:\Projects\Searcher\SearcherTests\obj\Debug\SearcherTests.pdb
