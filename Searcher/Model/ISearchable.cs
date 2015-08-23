@@ -10,6 +10,11 @@ namespace Searcher.Model
     
     public static class SearchableExtension
     {
+        public static bool FuzzyContains(this string property, string searchTerm)
+        {
+            return property.Contains(searchTerm);
+        }
+
         public static int Search(this ISearchable searchable, string[] searchTerms)
         {
             return searchTerms.Select(searchTerm => searchable.Search(searchTerm)).Sum();
@@ -21,5 +26,4 @@ namespace Searcher.Model
             return searchTerms.Select(searchTerm => searchable.Search(searchTerm)).All(x => x > 0);
         }
     }
-
 }

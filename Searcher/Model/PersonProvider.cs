@@ -66,8 +66,7 @@ namespace Searcher.Model
                 filePath = string.Empty;
             }
 
-            fileSuffix = Path.GetExtension(filePath).Replace(SuffixSeperator, String.Empty).ToUpper();
-
+            fileSuffix = Path.GetExtension(filePath).Replace(SuffixSeperator, string.Empty).ToUpper();
             if (!Enum.TryParse(fileSuffix, out fileType) || fileType == PersonProviderSupportedFileTypes.Unknown)
             {
                 throw new UnrecognizedFileTypeException();

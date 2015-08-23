@@ -14,8 +14,6 @@ namespace Searcher.ViewModel
 {
     public class SearcherViewModel : DependencyObject, INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         #region Properties
 
         #region SettingsStatusMessageText
@@ -182,6 +180,8 @@ namespace Searcher.ViewModel
         #endregion
 
         #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
         internal void NotifyPropertyChanged(string property)
         {
             if (PropertyChanged != null)

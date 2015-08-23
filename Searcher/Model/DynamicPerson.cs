@@ -43,7 +43,7 @@ namespace Searcher.Model
 
         public int Search(string searchTerm)
         {
-            return _fields.Where(property => property.Contains(searchTerm)).Count();
+            return _fields.Where(property => property.FuzzyContains(searchTerm)).Count();
         }
         
         public override IEnumerable<string> GetDynamicMemberNames()
