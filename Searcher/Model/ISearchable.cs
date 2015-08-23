@@ -39,8 +39,8 @@ namespace Searcher.Model
         {
             string normalizedSearchTerm, normalizedStringToSearch;
 
-            normalizedStringToSearch = LanguageUtillities.NormalizeHebrewInString(stringToSearch);
-            normalizedSearchTerm = LanguageUtillities.NormalizeHebrewInString(searchTerm);
+            normalizedStringToSearch = stringToSearch.ToNormalizedString();
+            normalizedSearchTerm = searchTerm.ToNormalizedString();
 
             if (InnerFuzzyContains(normalizedStringToSearch, normalizedSearchTerm))
             {
@@ -48,7 +48,7 @@ namespace Searcher.Model
             }
 
             // LangOver search term, and redo the fuzzy search
-            return InnerFuzzyContains(normalizedStringToSearch, LanguageUtillities.NormalizeHebrewInString(searchTerm.LangOver()));
+            return InnerFuzzyContains(normalizedStringToSearch, normalizedSearchTerm.LangOver());
         }
 
         public static int Search(this ISearchable searchable, string[] searchTerms)

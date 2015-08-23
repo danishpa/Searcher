@@ -95,7 +95,7 @@ namespace Searcher.Model
                 {'.', 'ץ'},
             };
 
-        public static string NormalizeHebrewInString(string source)
+        public static string NormalizeHebrew(string source)
         {
             string result = null;
 
@@ -110,6 +110,16 @@ namespace Searcher.Model
                 result = result.Replace(pair.Key, pair.Value);
             }
             return result;
+        }
+
+        public static string NormalizeEnglish(string source)
+        {
+            return source.ToLower();
+        }
+
+        public static string ToNormalizedString(this string source)
+        {
+            return NormalizeHebrew(NormalizeEnglish(source));
         }
 
         public static string LangOver(this string source)

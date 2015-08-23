@@ -8,7 +8,9 @@
         Title="Settings" Height="300" Width="400" ResizeMode="NoResize" ShowInTaskbar="False" Icon="Resources/SettingsIcon.ico" >
     <Grid>
         <DockPanel VerticalAlignment="Top" Height="50" LastChildFill="True" >
-            <Button x:Name="BrowseButton" Command="{Binding BrowseSourcePath}" DockPanel.Dock="Right" Content="B" Margin="5,10,5,10" VerticalAlignment="Top" Width="30" Height="30" />
+            <Button x:Name="BrowseButton" Command="{Binding BrowseSourcePath}" DockPanel.Dock="Right" Margin="5,10,5,10" VerticalAlignment="Top" Width="25" Height="25">
+                <Image Source="/View/Resources/FindIcon.ico" Width="16" Height="16" />
+            </Button>
             <TextBlock x:Name="FilePathTextBox" Text="{Binding PersonSourcePathText}"  Height="40" Margin="5,5,0,5" TextWrapping="Wrap" VerticalAlignment="Top" />
         </DockPanel>
 
