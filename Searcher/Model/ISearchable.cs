@@ -10,13 +10,7 @@ namespace Searcher.Model
     
     public static class SearchableExtension
     {
-        /// <summary>
-        /// Checks if the string receives fuzzy-ly contains the searchTerm
-        /// ABCDEFGHI, BCGH -> true (because BC and GH appear in the string, even if there are other characters in the middle)
-        /// ABCDEFGHI, DCBA -> false (because the order is incorrect)
-        /// </summary>
-        /// <remarks>Extends <typeparamref name="string"/> type</remarks>
-        public static bool FuzzyContains(this string stringToSearch, string searchTerm)
+        private static bool InnerFuzzyContains(string stringToSearch, string searchTerm)
         {
             int i = 0, j = 0;
 
@@ -33,6 +27,28 @@ namespace Searcher.Model
                 }
             }
             return (searchTerm.Length <= j);
+        }
+
+        /// <summary>
+        /// Checks if the string receives fuzzy-ly contains the searchTerm
+        /// ABCDEFGHI, BCGH -> true (because BC and GH appear in the string, even if there are other characters in the middle)
+        /// ABCDEFGHI, DCBA -> false (because the order is incorrect)
+        /// </summary>
+        /// <remarks>Extends <typeparamref name="string"/> type</remarks>
+        public static bool FuzzyContains(this string stringToSearch, string searchTerm)
+        {
+            string normalizedSearchTerm, normalizedStringToSearch;
+
+            normalizedStringToSearch = LanguageUtillities.NormalizeHebrewInString(stringToSearch);
+            normalizedSearchTerm = LanguageUtillities.NormalizeHebrewInString(searchTerm);
+
+            if (InnerFuzzyContains(normalizedStringToSearch, normalizedSearchTerm))
+            {
+                return true;
+            }
+
+            // LangOver search term, and redo the fuzzy search
+            return InnerFuzzyContains(normalizedStringToSearch, LanguageUtillities.NormalizeHebrewInString(searchTerm.LangOver()));
         }
 
         public static int Search(this ISearchable searchable, string[] searchTerms)

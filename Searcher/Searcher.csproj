@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Dynamics\DynamicCollection.cs" />
+    <Compile Include="Model\LanguageUtillities.cs" />
     <Compile Include="Model\PersonProvider.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\SearcherViewModel.cs" />

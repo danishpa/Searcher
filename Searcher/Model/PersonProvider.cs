@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Searcher.Model.Dynamics;
+using System.Windows.Forms;
 
 namespace Searcher.Model
 {
@@ -24,18 +25,17 @@ namespace Searcher.Model
                 { PersonProviderSupportedFileTypes.CSV, FromCSVFile }
             };
         #endregion // Static Members
-
+        
         public static DynamicCollection<DynamicPerson> GetPersonsBySearchTerm(this DynamicCollection<DynamicPerson> persons, string searchTerm)
         {
-            // TODO: 
-            // 1. Smarter search logic - Fuzzy search - Consecutive letters
-            // 2. Searching in english tries to convert characters to hebrew and search
-            // 3. But if the searched string is in english, search in english
-            // 4. Try to order by relevance (SearchAll should return a float which represents how good is the match)
+            // [V] Smarter search logic - Fuzzy search - Consecutive letters
+            // [X] Searching in english tries to convert characters to hebrew and search
+            // [X] But if the searched string is in english, search in english
+            // [X] Try to order by relevance (SearchAll should return a float which represents how good is the match)
 
             string[] whiteSpaces = { " " };
             string[] searchTerms = searchTerm.Split(whiteSpaces, StringSplitOptions.RemoveEmptyEntries);
-
+            
             // Return all persons, for which all the search terms appear in their properties
             return new DynamicCollection<DynamicPerson>(persons
                 .Where(person => person.SearchAll(searchTerms))
