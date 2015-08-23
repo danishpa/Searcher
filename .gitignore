@@ -3,25 +3,15 @@
 *.exe
 *.pdb
 *.Cache
-<<<<<<< HEAD
 *.g.cs
 *.g.i.cs
-Searcher.Tests/
-Searcher\bin\Debug
-Searcher/bin/Debug
-Searcher/bin/Debug/*
-Searcher\obj\Debug
-Searcher/obj/Debug/*
 TestResults/
-=======
-Searcher/bin/*
-Searcher/obj/*
 TestResults/*
-TestSearcher/bin/*
-TestSearcher/obj/*
->>>>>>> master
-SearcherTests/obj/Debug/build.force
-SearcherTests/obj/Debug/SearcherTests.csproj.FileListAbsolute.txt
-SearcherTests/obj/Debug/SearcherTests.csproj.FileListAbsolute.txt
-SearcherTests/bin/Debug/Microsoft.WindowsAPICodePack.xml
-SearcherTests/obj/Debug/SearcherTests.csproj.FileListAbsolute.txt
+Searcher/bin/
+Searcher/bin/*
+Searcher/obj/
+Searcher/obj/*
+SearcherTests/bin/
+SearcherTests/bin/*
+SearcherTests/obj/
+SearcherTests/obj/*
