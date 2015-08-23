@@ -10,7 +10,7 @@ namespace Searcher.Model
     
     public static class SearchableExtension
     {
-        private static bool InnerFuzzyContains(string stringToSearch, string searchTerm)
+        public static bool InnerFuzzyContains(string stringToSearch, string searchTerm)
         {
             int i = 0, j = 0;
 
