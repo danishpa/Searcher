@@ -215,7 +215,7 @@ namespace Searcher.View
             SettingsWindow.Close();
             SettingsWindow = null;
         }
-
+        //!! TODO: Turn this into a RelayCommand?
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             if (SettingsWindow == null)

@@ -8,8 +8,16 @@
         Title="Settings" Height="300" Width="400" ResizeMode="NoResize" ShowInTaskbar="False" Icon="Resources/SettingsIcon.ico" >
     <Grid>
         <DockPanel VerticalAlignment="Top" Height="50" LastChildFill="True" >
-            <Button x:Name="BrowseButton" DockPanel.Dock="Right" Content="B" Margin="5,10,5,10" VerticalAlignment="Top" Width="30" Height="30" />
+            <Button x:Name="BrowseButton" Command="{Binding BrowseSourcePath}" DockPanel.Dock="Right" Content="B" Margin="5,10,5,10" VerticalAlignment="Top" Width="30" Height="30" />
             <TextBlock x:Name="FilePathTextBox" Text="{Binding PersonSourcePathText}"  Height="40" Margin="5,5,0,5" TextWrapping="Wrap" VerticalAlignment="Top" />
+        </DockPanel>
+
+        <DockPanel Margin="0,250,0,0">
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBarItem>
+                    <TextBlock Name="SettingsStatusMessage" Text="{Binding SettingsStatusMessageText}" Foreground="Red" />
+                </StatusBarItem>
+            </StatusBar>
         </DockPanel>
     </Grid>
 </Window>

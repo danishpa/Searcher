@@ -70,5 +70,17 @@ namespace Searcher.Properties {
                 this["FirstRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastPersonSource {
+            get {
+                return ((string)(this["LastPersonSource"]));
+            }
+            set {
+                this["LastPersonSource"] = value;
+            }
+        }
     }
 }

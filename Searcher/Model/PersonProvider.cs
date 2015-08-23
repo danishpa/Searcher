@@ -59,10 +59,16 @@ namespace Searcher.Model
         public static DynamicCollection<DynamicPerson> FromFile(string filePath)
         {
             PersonProviderSupportedFileTypes fileType = PersonProviderSupportedFileTypes.Unknown;
-            string fileSuffix = Path.GetExtension(filePath).Replace(SuffixSeperator, String.Empty).ToUpper();
+            string fileSuffix = null;
 
-            if (!Enum.TryParse(fileSuffix, out fileType)
-                 || fileType == PersonProviderSupportedFileTypes.Unknown)
+            if (filePath == null)
+            {
+                filePath = string.Empty;
+            }
+
+            fileSuffix = Path.GetExtension(filePath).Replace(SuffixSeperator, String.Empty).ToUpper();
+
+            if (!Enum.TryParse(fileSuffix, out fileType) || fileType == PersonProviderSupportedFileTypes.Unknown)
             {
                 throw new UnrecognizedFileTypeException();
             }
