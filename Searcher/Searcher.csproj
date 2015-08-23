@@ -128,13 +128,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\Resources\SettingsIcon.ico" />
+    <Resource Include="View\Resources\Settings.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\Resources\FindIcon.ico" />
+    <Resource Include="View\Resources\Find.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\Resources\FolderIcon.ico" />
+    <Resource Include="View\Resources\Folder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Eracer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

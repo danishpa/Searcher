@@ -146,12 +146,14 @@ namespace Searcher.ViewModel
         protected void InitializeRelayCommands()
         {
             BrowseSourcePath = new RelayCommand(BrowseSourcePath_Execute);
+            RevertToDefaults = new RelayCommand(RevertToDefaults_Execute);
         }
 
         #endregion // Initialization
 
         #region Commands
         public RelayCommand BrowseSourcePath { get; set; }
+        public RelayCommand RevertToDefaults { get; set; }
 
         internal void BrowseSourcePath_Execute(object parameter)
         {
@@ -171,6 +173,28 @@ namespace Searcher.ViewModel
             catch (SearcherException e)
             {
                 SettingsStatusMessageText = e.Message;
+            }
+        }
+
+        internal void RevertToDefaults_Execute(object parameter)
+        {
+            MessageBoxResult result = System.Windows.MessageBox.Show(
+                "You are about to restore the settings to their defaults. Confirm.",
+                "Restore",
+                MessageBoxButton.YesNo);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    PersonSourcePathText = string.Empty;
+                }
+                catch (SearcherException e)
+                {
+                }
+                
+                Properties.Settings.Default.Reset();
+                Properties.Settings.Default.Save();
             }
         }
 
