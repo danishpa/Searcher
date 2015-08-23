@@ -152,6 +152,20 @@ namespace Searcher.Model.Tests
         }
 
         [TestMethod()]
+        public void FuzzyContains_Capitalization_Test()
+        {
+            string stringToSearch = "ABcdEfGhiJ";
+
+            Assert.IsTrue(stringToSearch.FuzzyContains("abcd"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("ABcD"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("EFGJ"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("ABCDEF"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("cDeFGiJ"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("abcdefghij"));
+            Assert.IsTrue(stringToSearch.FuzzyContains("ABCDEFGHIJ"));
+        }
+
+        [TestMethod()]
         public void FuzzyContains_Valid_End_Characters_Test()
         {
             string stringToSearch = "ארם";
