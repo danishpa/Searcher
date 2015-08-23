@@ -21,3 +21,7 @@ TestSearcher/bin/*
 TestSearcher/obj/*
 >>>>>>> master
 SearcherTests/obj/Debug/build.force
+SearcherTests/obj/Debug/SearcherTests.csproj.FileListAbsolute.txt
+SearcherTests/obj/Debug/SearcherTests.csproj.FileListAbsolute.txt
+SearcherTests/bin/Debug/Microsoft.WindowsAPICodePack.xml
+SearcherTests/obj/Debug/SearcherTests.csproj.FileListAbsolute.txt
