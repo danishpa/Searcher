@@ -12,7 +12,7 @@
             <TextBlock x:Name="FilePathTextBox" Text="{Binding PersonSourcePathText}"  Height="40" Margin="5,5,0,5" TextWrapping="Wrap" VerticalAlignment="Top" />
         </DockPanel>
 
-        <DockPanel Margin="0,250,0,0">
+        <DockPanel Margin="0,232,0,0">
             <StatusBar DockPanel.Dock="Bottom">
                 <StatusBarItem>
                     <TextBlock Name="SettingsStatusMessage" Text="{Binding SettingsStatusMessageText}" Foreground="Red" />

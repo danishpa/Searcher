@@ -31,7 +31,7 @@ namespace Searcher.ViewModel
                 if (_SettingsStatusMessageText != value)
                 {
                     _SettingsStatusMessageText = value;
-                    NotifyPropertyChanged("SettingsStatusMessage");
+                    NotifyPropertyChanged("SettingsStatusMessageText");
                 }
             }
         }
@@ -174,10 +174,9 @@ namespace Searcher.ViewModel
 
                 SettingsStatusMessageText = string.Empty;
             }
-            // Do nothing
-            catch (UnrecognizedFileTypeException)
+            catch (SearcherException e)
             {
-                SettingsStatusMessageText = "Unrecognized file type";
+                SettingsStatusMessageText = e.Message;
             }
         }
 
@@ -213,6 +212,11 @@ namespace Searcher.ViewModel
             {
                 selectedFileName = dialog.FileName;
             }
+            else
+            {
+                throw new NoFileSelectedException();
+            }
+
             return selectedFileName;
         }
 
