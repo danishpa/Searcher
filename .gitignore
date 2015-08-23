@@ -9,3 +9,4 @@ TestResults/
 bin/
 obj/
 .vs/
+Searcher/samples/people_hebrew.csv
