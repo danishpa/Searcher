@@ -6,12 +6,6 @@
 *.g.cs
 *.g.i.cs
 TestResults/
-TestResults/*
-Searcher/bin/
-Searcher/bin/*
-Searcher/obj/
-Searcher/obj/*
-SearcherTests/bin/
-SearcherTests/bin/*
-SearcherTests/obj/
-SearcherTests/obj/*
+bin/
+obj/
+
